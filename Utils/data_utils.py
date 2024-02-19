@@ -147,4 +147,23 @@ class LinearModel(nn.Module):
         linear_output = self.linear(x)
         # Apply activation function
         output = self.activation(linear_output)
-        return output    
+        return output  
+
+
+
+
+
+
+class Decoder_block(nn.Module):
+    def __init__(self,embed_size,num_heads,forward_expansion,dropout,device):
+        super(Decoder_block,self).__init__()
+        self.multi_head_attention=attention(embed_size,num_heads)
+        self.norm=nn.LayerNorm(embed_size)
+        self.transformer_block=TransformerBlock(embed_size,num_heads,dropout,forward_expansion)
+        self.dropout=nn.Dropout(dropout)
+    
+    def forward(self,x,key,value,src_mask,targ_mask):
+        multi_head_attention=self.multi_head_attention(x,x,x,targ_mask)
+        query=self.dropout(self.norm(x+multi_head_attention))
+        out=self.transformer_block(query,key,value,src_mask)
+        return out
