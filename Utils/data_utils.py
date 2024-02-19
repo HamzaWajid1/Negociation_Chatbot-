@@ -131,3 +131,20 @@ class PositionalEncoding1(nn.Module):
         batch_size, seq_len = x.shape[:2]
         pe = self.pe[:, :seq_len, :].expand(batch_size, -1, -1)
         return pe
+    
+
+
+
+
+class LinearModel(nn.Module):
+    def __init__(self, input_dim, output_dim):
+        super(LinearModel, self).__init__()
+        self.linear = nn.Linear(input_dim, output_dim)
+        self.activation = nn.ReLU()  # Using ReLU activation function
+
+    def forward(self, x):
+        # Linear transformation
+        linear_output = self.linear(x)
+        # Apply activation function
+        output = self.activation(linear_output)
+        return output    
