@@ -71,3 +71,34 @@ class attention(nn.Module):
         output = self.output(output)
         print("The final shape of output is "+str(output.shape))
         return output  
+    
+
+
+
+
+
+
+
+
+
+class TransformerBlock(nn.Module):
+    def __init__(self, embed_size,num_heads,dropout,foward_expansion):
+        super(TransformerBlock,self).__init__()
+        self.attention=attention(embed_size,num_heads=num_heads)
+        self.norm1=nn.LayerNorm(embed_size)
+        self.norm2=nn.LayerNorm(embed_size)
+
+        self.feed_foward=nn.Sequential(
+            nn.Linear(embed_size,foward_expansion*embed_size),
+            nn.ReLU(),
+            nn.Linear(foward_expansion*embed_size,embed_size)
+        )
+
+        self.dropout=nn.Dropout(dropout)
+
+    def forward(self,query,key,value,mask):
+        multi_head_attention=self.attention(query,key,value,mask)
+        x=self.dropout(self.norm1(multi_head_attention+query))
+        foward=self.feed_foward(x)  
+        out=self.dropout(self.norm2(foward + x))
+        return out
