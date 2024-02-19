@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.utils.rnn import pad_sequence
 from transformers import BertTokenizer, BertModel
-
+import math
 
 
 
@@ -102,3 +102,32 @@ class TransformerBlock(nn.Module):
         foward=self.feed_foward(x)  
         out=self.dropout(self.norm2(foward + x))
         return out
+    
+
+
+
+
+
+
+
+
+
+class PositionalEncoding1(nn.Module):
+    def __init__(self, max_len, embed_size):
+        super(PositionalEncoding1, self).__init__()
+        self.embed_size = embed_size
+
+        # Create constant positional encoding matrix
+        pe = torch.zeros(max_len, embed_size)
+        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
+        div_term = torch.exp(torch.arange(0, embed_size, 2).float() * (-math.log(10000.0) / embed_size))
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+        pe = pe.unsqueeze(0)  # Add batch dimension
+        self.register_buffer('pe', pe)
+
+    def forward(self, x):
+        # Ensure that positional encoding has the same shape as input tensor x
+        batch_size, seq_len = x.shape[:2]
+        pe = self.pe[:, :seq_len, :].expand(batch_size, -1, -1)
+        return pe
