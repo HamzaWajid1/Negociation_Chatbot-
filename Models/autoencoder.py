@@ -1,4 +1,3 @@
-
 import torch.nn as nn
 from Utils.Encoder import Encoder
 from Utils.Decoder import decoder
