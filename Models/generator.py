@@ -19,7 +19,7 @@ class Generator(nn.Module):
             max_length=100            
 
     ):
-        super(Transformer,self).__init__()
+        super(Generator,self).__init__()
         self.tokenizer=BertTokenizer.from_pretrained(bert_model_name)
         self.model=BertModel.from_pretrained(bert_model_name)
         self.Transformer=Transformer(src_vocab_size,trg_vocab_size,embed_size,num_layers,forward_expansion,num_heads,dropout,device,max_length)
