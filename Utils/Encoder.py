@@ -1,7 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.utils.rnn import pad_sequence
-from data_utils import LinearModel,PositionalEncoding1,TransformerBlock
+from Utils.data_utils import LinearModel,PositionalEncoding1,TransformerBlock
 
 
 

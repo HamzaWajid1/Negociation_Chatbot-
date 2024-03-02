@@ -1,5 +1,4 @@
 import torch.nn as nn
-from Utils.Decoder import decoder
 from Utils.Encoder import Encoder
 
 
@@ -27,7 +26,6 @@ class Transformer(nn.Module):
     ):
         super(Transformer,self).__init__()
         self.encoder=Encoder(src_vocab_size,embed_size,num_layers,num_heads,device,forward_expansion,dropout,max_length)
-        self.decoder=decoder(trg_vocab_size,embed_size,num_heads,num_layers,forward_expansion,dropout,device,max_length)
         #self.src_pad_index=src_pad_index
         #self.trg_pad_index=trg_pad_index
         self.device=device
@@ -35,7 +33,5 @@ class Transformer(nn.Module):
 
     def forward(self,src,trg):
         enc_src=self.encoder(src,None)
-        print("\n\n\n\nThe shape of encoder is "+str(enc_src.shape))
-        out=self.decoder(trg,enc_src,None,1)
-        print("\n\n\n\nThe shape of output is "+str(out.shape))
+        print("\n\n\n\nThe shape ggggggg of encoder is "+str(enc_src.shape))
         return enc_src
