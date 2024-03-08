@@ -4,14 +4,6 @@ from torch.nn.utils.rnn import pad_sequence
 from Utils.data_utils import LinearModel,PositionalEncoding1,Decoder_block
 
 
-
-
-
-
-
-
-
-
 class decoder(nn.Module):
     def __init__(
             self,

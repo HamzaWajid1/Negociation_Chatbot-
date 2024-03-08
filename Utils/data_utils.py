@@ -6,9 +6,6 @@ from transformers import BertTokenizer, BertModel
 import math
 
 
-
-
-
 class attention(nn.Module):
     def __init__(self, embed_size, num_heads):
         super(attention, self).__init__()
@@ -76,11 +73,6 @@ class attention(nn.Module):
 
 
 
-
-
-
-
-
 class TransformerBlock(nn.Module):
     def __init__(self, embed_size,num_heads,dropout,foward_expansion):
         super(TransformerBlock,self).__init__()
@@ -106,12 +98,6 @@ class TransformerBlock(nn.Module):
 
 
 
-
-
-
-
-
-
 class PositionalEncoding1(nn.Module):
     def __init__(self, max_len, embed_size):
         super(PositionalEncoding1, self).__init__()
@@ -134,8 +120,6 @@ class PositionalEncoding1(nn.Module):
     
 
 
-
-
 class LinearModel(nn.Module):
     def __init__(self, input_dim, output_dim):
         super(LinearModel, self).__init__()
@@ -148,9 +132,6 @@ class LinearModel(nn.Module):
         # Apply activation function
         output = self.activation(linear_output)
         return output  
-
-
-
 
 
 
