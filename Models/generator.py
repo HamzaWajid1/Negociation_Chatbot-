@@ -1,6 +1,7 @@
 from Models.autoencoder import Transformer
 import torch.nn as nn
 from transformers import BertTokenizer, BertModel
+from transformers import BertConfig
 
 class Generator(nn.Module):
     def __init__(
